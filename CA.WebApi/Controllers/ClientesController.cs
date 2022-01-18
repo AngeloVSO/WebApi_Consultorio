@@ -1,4 +1,5 @@
 ﻿using CA.Core.Domain;
+using CA.Manager.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
@@ -9,30 +10,23 @@ namespace CA.WebApi.Controllers
     [ApiController]
     public class ClientesController : ControllerBase
     {
-        [HttpGet]
-        public IActionResult Get()
+        private IClienteManager _clienteManager;
+
+        public ClientesController(IClienteManager clienteManager)
         {
-            return Ok(new List<Cliente>()
-            {
-                new Cliente()
-                {
-                    Id = 1,
-                    Nome = "Angelo Victor",
-                    DataNascimento = new DateTime(1986, 08, 09)
-                },
-                new Cliente()
-                {
-                    Id = 2,
-                    Nome = "Karine Reis",
-                    DataNascimento = new DateTime(1986, 02, 09)
-                }
-            });
+            this._clienteManager = clienteManager;
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> Get()
+        {
+            return Ok(await _clienteManager.GetClientesAsync());
         }
 
         [HttpGet("{id}")]
-        public string Get(int id)
+        public async Task<IActionResult> Get(int id)
         {
-            return "value";
+            return Ok(await _clienteManager.GetClienteAsync(id));
         }
 
         [HttpPost]

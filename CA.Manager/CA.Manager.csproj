@@ -18,4 +18,8 @@
     </PackageReference>
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\CA.Core\CA.Core.csproj" />
+  </ItemGroup>
+
 </Project>
