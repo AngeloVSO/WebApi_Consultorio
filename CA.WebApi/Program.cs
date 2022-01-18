@@ -1,4 +1,7 @@
 using CA.Data.Context;
+using CA.Data.Repository;
+using CA.Manager.Implementation;
+using CA.Manager.Interfaces;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -8,7 +11,11 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
+
 builder.Services.AddDbContext<CAContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("CAConnection")));
+
+builder.Services.AddScoped<IClienteRepository, ClienteRepository>();
+builder.Services.AddScoped<IClienteManager, ClienteManager>();
 
 builder.Services.AddSwaggerGen(c =>
 {
