@@ -30,18 +30,28 @@ namespace CA.WebApi.Controllers
         }
 
         [HttpPost]
-        public void Post([FromBody] string value)
+        public async Task<IActionResult> Post([FromBody] Cliente cliente)
         {
+            var clientInserted = await _clienteManager.InsertClienteAsync(cliente);
+
+            return CreatedAtAction(nameof(Get), new { id = cliente.Id }, cliente);
         }
 
         [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
+        public async Task<IActionResult> Put([FromBody] Cliente cliente)
         {
+            var clientUpdated = await _clienteManager.UpdateClienteAsync(cliente);
+            if (clientUpdated == null) return NotFound();
+            
+            return Ok(clientUpdated);
         }
 
         [HttpDelete("{id}")]
-        public void Delete(int id)
+        public async Task<IActionResult> Delete(int id)
         {
+            await _clienteManager.DeleteClienteAsync(id);
+            
+            return NoContent();
         }
     }
 }

@@ -33,5 +33,29 @@ namespace CA.Data.Repository
             return await _context.Clientes.FindAsync(id); // antes de pegar do banco, verifica se ja tem em memoria tendo ganho de performance
         }
 
+        public async Task<Cliente> InsertClienteAsync(Cliente cliente)
+        {
+            await _context.Clientes.AddAsync(cliente);
+            await _context.SaveChangesAsync();
+            return cliente;
+        }
+
+        public async Task<Cliente> UpdateClienteAsync(Cliente cliente)
+        {
+            var clientExists = await _context.Clientes.FindAsync(cliente.Id);
+            if (clientExists == null) return null;
+            
+            _context.Entry(clientExists).CurrentValues.SetValues(cliente);
+            await _context.SaveChangesAsync();
+            
+            return clientExists;
+        }
+
+        public async Task DeleteClienteAsync(int id)
+        {
+            var clientExists = await _context.Clientes.FindAsync(id);
+            _context.Clientes.Remove(clientExists);
+            await _context.SaveChangesAsync();
+        }
     }
 }
