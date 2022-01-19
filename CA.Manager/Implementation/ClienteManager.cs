@@ -26,5 +26,20 @@ namespace CA.Manager.Implementation
         {
             return await _clienteRepository.GetClienteByIdAsync(id);
         }
+
+        public async Task DeleteClienteAsync(int id)
+        {
+            await _clienteRepository.DeleteClienteAsync(id);
+        }
+
+        public async Task<Cliente> InsertClienteAsync(Cliente cliente)
+        {
+            return await _clienteRepository.InsertClienteAsync(cliente);
+        }
+
+        public async Task<Cliente> UpdateClienteAsync(Cliente cliente)
+        {
+            return await _clienteRepository.UpdateClienteAsync(cliente);
+        }
     }
 }
