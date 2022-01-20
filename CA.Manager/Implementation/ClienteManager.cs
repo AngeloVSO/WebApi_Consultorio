@@ -8,11 +8,11 @@ using System.Threading.Tasks;
 
 namespace CA.Manager.Implementation
 {
-    public class ClientManager : IClientManager
+    public class ClienteManager : IClientManager
     {
         private readonly IClientRepository _clienteRepository;
 
-        public ClientManager(IClientRepository clienteRepository)
+        public ClienteManager(IClientRepository clienteRepository)
         {
             this._clienteRepository = clienteRepository;
         }

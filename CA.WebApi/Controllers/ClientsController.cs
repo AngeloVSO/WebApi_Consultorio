@@ -1,5 +1,6 @@
 ﻿using CA.Core.Domain;
 using CA.Manager.Interfaces;
+using CA.Manager.Validator;
 using Microsoft.AspNetCore.Mvc;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
@@ -32,9 +33,20 @@ namespace CA.WebApi.Controllers
         [HttpPost]
         public async Task<IActionResult> Post([FromBody] Client cliente)
         {
-            var clientInserted = await _clienteManager.InsertClienteAsync(cliente);
+            ClientValidator validator = new ClientValidator();
+            var validation = validator.Validate(cliente);
+            
+            if (validation.IsValid)
+            {
+                var clientInserted = await _clienteManager.InsertClienteAsync(cliente);
 
-            return CreatedAtAction(nameof(Get), new { id = cliente.Id }, cliente);
+                return CreatedAtAction(nameof(Get), new { id = cliente.Id }, cliente);
+            }
+            else
+            {
+                return BadRequest(validation.ToString());
+            }
+
         }
 
         [HttpPut("{id}")]
