@@ -14,8 +14,8 @@ builder.Services.AddEndpointsApiExplorer();
 
 builder.Services.AddDbContext<CAContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("CAConnection")));
 
-builder.Services.AddScoped<IClienteRepository, ClienteRepository>();
-builder.Services.AddScoped<IClienteManager, ClienteManager>();
+builder.Services.AddScoped<IClientRepository, ClientRepository>();
+builder.Services.AddScoped<IClientManager, ClientManager>();
 
 builder.Services.AddSwaggerGen(c =>
 {

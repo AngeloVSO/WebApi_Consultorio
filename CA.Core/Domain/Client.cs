@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace CA.Core.Domain
 {
-    public class Cliente
+    public class Client
     {
         public int Id { get; set; }
         public string Nome { get; set; }

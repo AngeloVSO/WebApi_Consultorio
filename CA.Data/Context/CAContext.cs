@@ -10,7 +10,7 @@ namespace CA.Data.Context
 {
     public class CAContext : DbContext
     {
-        public DbSet<Cliente> Clientes { get; set; }
+        public DbSet<Client> Clientes { get; set; }
 
         public CAContext(DbContextOptions options) : base(options)
         {

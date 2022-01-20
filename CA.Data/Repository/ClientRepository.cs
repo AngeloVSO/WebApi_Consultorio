@@ -10,21 +10,21 @@ using System.Threading.Tasks;
 
 namespace CA.Data.Repository
 {
-    public class ClienteRepository : IClienteRepository
+    public class ClientRepository : IClientRepository
     {
         private readonly CAContext _context;
 
-        public ClienteRepository(CAContext context)
+        public ClientRepository(CAContext context)
         {
             this._context = context;
         }
 
-        public async Task<IEnumerable<Cliente>> GetClientesAsync()
+        public async Task<IEnumerable<Client>> GetClientesAsync()
         {
             return await _context.Clientes.AsNoTracking().ToListAsync();
         }
 
-        public async Task<Cliente?> GetClienteByIdAsync(int id)
+        public async Task<Client?> GetClienteByIdAsync(int id)
         {
             //return await _context.Clientes.Where(c => c.Id == id).FirstOrDefaultAsync();  -------  outra opção
             //return await _context.Clientes.AsNoTracking().FirstOrDefaultAsync(c => c.Id == id);   -------  outra opção2
@@ -33,14 +33,14 @@ namespace CA.Data.Repository
             return await _context.Clientes.FindAsync(id); // antes de pegar do banco, verifica se ja tem em memoria tendo ganho de performance
         }
 
-        public async Task<Cliente> InsertClienteAsync(Cliente cliente)
+        public async Task<Client> InsertClienteAsync(Client cliente)
         {
             await _context.Clientes.AddAsync(cliente);
             await _context.SaveChangesAsync();
             return cliente;
         }
 
-        public async Task<Cliente> UpdateClienteAsync(Cliente cliente)
+        public async Task<Client> UpdateClienteAsync(Client cliente)
         {
             var clientExists = await _context.Clientes.FindAsync(cliente.Id);
             if (clientExists == null) return null;

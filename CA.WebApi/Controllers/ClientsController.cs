@@ -8,11 +8,11 @@ namespace CA.WebApi.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class ClientesController : ControllerBase
+    public class ClientsController : ControllerBase
     {
-        private IClienteManager _clienteManager;
+        private IClientManager _clienteManager;
 
-        public ClientesController(IClienteManager clienteManager)
+        public ClientsController(IClientManager clienteManager)
         {
             this._clienteManager = clienteManager;
         }
@@ -30,7 +30,7 @@ namespace CA.WebApi.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Post([FromBody] Cliente cliente)
+        public async Task<IActionResult> Post([FromBody] Client cliente)
         {
             var clientInserted = await _clienteManager.InsertClienteAsync(cliente);
 
@@ -38,7 +38,7 @@ namespace CA.WebApi.Controllers
         }
 
         [HttpPut("{id}")]
-        public async Task<IActionResult> Put([FromBody] Cliente cliente)
+        public async Task<IActionResult> Put([FromBody] Client cliente)
         {
             var clientUpdated = await _clienteManager.UpdateClienteAsync(cliente);
             if (clientUpdated == null) return NotFound();
