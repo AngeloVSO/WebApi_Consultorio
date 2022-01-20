@@ -8,21 +8,21 @@ using System.Threading.Tasks;
 
 namespace CA.Manager.Implementation
 {
-    public class ClienteManager : IClienteManager
+    public class ClienteManager : IClientManager
     {
-        private readonly IClienteRepository _clienteRepository;
+        private readonly IClientRepository _clienteRepository;
 
-        public ClienteManager(IClienteRepository clienteRepository)
+        public ClienteManager(IClientRepository clienteRepository)
         {
             this._clienteRepository = clienteRepository;
         }
 
-        public async Task<IEnumerable<Cliente>> GetClientesAsync()
+        public async Task<IEnumerable<Client>> GetClientesAsync()
         {
             return await _clienteRepository.GetClientesAsync();
         }
 
-        public async Task<Cliente?> GetClienteAsync(int id)
+        public async Task<Client?> GetClienteAsync(int id)
         {
             return await _clienteRepository.GetClienteByIdAsync(id);
         }
@@ -32,12 +32,12 @@ namespace CA.Manager.Implementation
             await _clienteRepository.DeleteClienteAsync(id);
         }
 
-        public async Task<Cliente> InsertClienteAsync(Cliente cliente)
+        public async Task<Client> InsertClienteAsync(Client cliente)
         {
             return await _clienteRepository.InsertClienteAsync(cliente);
         }
 
-        public async Task<Cliente> UpdateClienteAsync(Cliente cliente)
+        public async Task<Client> UpdateClienteAsync(Client cliente)
         {
             return await _clienteRepository.UpdateClienteAsync(cliente);
         }
